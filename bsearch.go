@@ -4,22 +4,22 @@ type CompareResult int
 
 const (
 	Smaller CompareResult = -1
-	Equal CompareResult = 0
-	Bigger CompareResult = 1
+	Equal   CompareResult = 0
+	Bigger  CompareResult = 1
 )
 
-type CompareFunc func(int)CompareResult
+type CompareFunc func(int) CompareResult
 
 func Search(n int, compare CompareFunc) int {
 	i, j := 0, n
 	for i < j {
 		h := i + (j-i)/2
-		switch compare(h) {
-		case Smaller:
+		result := int(compare(h))
+		if result < 0 {
 			i = h + 1
-		case Equal:
+		} else if result == 0 {
 			return h
-		case Bigger:
+		} else {
 			j = h
 		}
 	}
@@ -30,12 +30,12 @@ func FindInsertPosition(n int, compare CompareFunc) int {
 	i, j := 0, n
 	for i < j {
 		h := i + (j-i)/2
-		switch compare(h) {
-		case Smaller:
+		result := int(compare(h))
+		if result < 0 {
 			i = h + 1
-		case Equal:
+		} else if result == 0 {
 			return h
-		case Bigger:
+		} else {
 			j = h
 		}
 	}
